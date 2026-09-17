@@ -15,8 +15,8 @@ public class SpriteMover0 : MonoBehaviour
     
     // set priv var for camera ref
     private Camera cam;
-    private int someMaxWidth = Screen.width;
-    private int someMaxHeight = Screen.height;
+    public int someMaxWidth = Screen.width;
+    public int someMaxHeight = Screen.height;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     // get objects name and print to debug log stating our sprite mover is attached;
