@@ -9,7 +9,7 @@
 
 ## Project Overview
 
-This is the final project for GPE104. The goal of this project is to demonstrate understanding of:
+This is the an ongoing project for GPE104. The goal of this project is to demonstrate understanding of:
 
 - Core Unity workflow (Scenes, GameObjects, Prefabs)
 - Scripting in C#
@@ -20,6 +20,13 @@ This is the final project for GPE104. The goal of this project is to demonstrate
 
 This will describe and list features that are implemented to a sufficient manner.
 
+09/17/2026@10:04AM 
+- Basic Input keyboard monitoring w/Random Sprite movememt.
+
 ## WIP
 
 This will descrive Work in Progress implementations. 
+
+- WSAD Input Keyboard movement.
+- T - Move random movement from any key to "T" key.
+
