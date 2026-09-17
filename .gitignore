@@ -20,3 +20,6 @@ Logs/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+# MacOS common files
+.DS_Store
