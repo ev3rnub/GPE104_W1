@@ -1,9 +1,8 @@
 //Course: GPE104 
 //Prof: Matthew Henry 
 //Proj: Project 2 Milestone 1 - My First Sprite Mover
-
 //Student: Chad Verbus
-//Date: 09/17/2026@08:37AM
+
 
 //imports
 using UnityEngine;
@@ -16,6 +15,8 @@ public class SpriteMover0 : MonoBehaviour
     
     // set priv var for camera ref
     private Camera cam;
+    [SerializeField] private int someMaxWidth = Screen.width;
+    [SerializeField] private int someMaxHeight = Screen.height;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     // get objects name and print to debug log stating our sprite mover is attached;
@@ -108,10 +109,10 @@ public class SpriteMover0 : MonoBehaviour
         Debug.Log($"Current World Pos to move to: {worldPos}");
 
         // 4. Move the attached sprite via transform.
-        worldPos.z = 0f; // [RESEARCH: "not sure why cam.ScreenToWorldPoint sets worldPos z to -10f, resetting it to 0."]
+        worldPos.z = 0f; // [RESEARCH: "Why cam.ScreenToWorldPoint sets worldPos z to -10f, resetting it to 0."]
         Debug.Log($"NEW World Pos to move to: {worldPos}");
         transform.position = worldPos;
-        Debug.Log($"Screen: ({randomPixelX:F0}, {randomPixelY:F0}) → World: {worldPos}");
+        Debug.Log($"Screen: ({randomPixelX:F0}, {randomPixelY:F0}) >> World: {worldPos}");
     }
 
     void MoveNorth()
@@ -120,11 +121,16 @@ public class SpriteMover0 : MonoBehaviour
         // 0. Set a fixed amt of pixels to move our player2d Sprite by
         int someMoveAmt = 50;  // e.g., 50 pixels
 
-        // 1. Get viewport resolution in pixels [NOTE: "dup lines, orig from MoveToRandomViewportPosition"]
-        int screenWidth  = Screen.width;   // e.g., 1920
-        int screenHeight = Screen.height;  // e.g., 1080
-
-        Debug.Log($"Current Screen width/height = ({screenWidth}/{screenHeight})");
+        // 1. Get viewport resolution use it as max width/height
+        if (someMaxWidth >= 0)
+        {
+            someMaxWidth  = Screen.width;   // e.g., 1920
+        }
+        if (someMaxHeight >= 0)
+        {
+            someMaxHeight = Screen.height;  // e.g., 1080
+        }
+        
 
         // 2. Move North a fixed amount of pixels..
     }
@@ -134,7 +140,8 @@ public class SpriteMover0 : MonoBehaviour
         // In a built player, close the application
         Debug.Log("INSIDE QUITGAME");
         Application.Quit();
-        // If running inside the Unity Editor (for testing purposes)
+
+        // If running inside the Unity Editor
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
