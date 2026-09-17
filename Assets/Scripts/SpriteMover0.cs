@@ -54,6 +54,15 @@ public class SpriteMover0 : MonoBehaviour
                             break;
                         }
                     }
+                    // Escape detectection
+                    // if so, quit
+                    if (Keyboard.current.escapeKey.wasPressedThisFrame)
+                        {
+                            Debug.Log("escapeKey was pressed!");
+                            QuitGame();
+                            // move sprite, etc.
+                        }                    
+
                     // Future Use: WSAD input detection 
                     if (Keyboard.current.aKey.wasPressedThisFrame)
                         {
@@ -118,5 +127,16 @@ public class SpriteMover0 : MonoBehaviour
         Debug.Log($"Current Screen width/height = ({screenWidth}/{screenHeight})");
 
         // 2. Move North a fixed amount of pixels..
+    }
+
+    void QuitGame()
+    {
+        // In a built player, close the application
+        Debug.Log("INSIDE QUITGAME");
+        Application.Quit();
+        // If running inside the Unity Editor (for testing purposes)
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }
