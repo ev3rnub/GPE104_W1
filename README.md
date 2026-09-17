@@ -24,6 +24,8 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/17/2026@10:27AM - Implemented Escape to Quit functionality.
 
+09/17/2026@11:18AM - Added private vars and updated some comments/misc code cleanup.
+
 ## WIP
 
 This will descrive Work in Progress implementations. 
