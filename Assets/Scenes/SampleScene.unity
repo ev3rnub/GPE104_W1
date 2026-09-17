@@ -482,8 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c6c72dc4dff43e89875b2229c30d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteMover0
-  someMaxWidth: 3
-  someMaxHeight: 3
+  someMaxWidth: 0
+  someMaxHeight: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -15,8 +15,8 @@ public class SpriteMover0 : MonoBehaviour
     
     // set priv var for camera ref
     private Camera cam;
-    [SerializeField] private int someMaxWidth = Screen.width;
-    [SerializeField] private int someMaxHeight = Screen.height;
+    private int someMaxWidth = Screen.width;
+    private int someMaxHeight = Screen.height;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     // get objects name and print to debug log stating our sprite mover is attached;
@@ -31,6 +31,7 @@ public class SpriteMover0 : MonoBehaviour
 
         // debug log
         Debug.Log("Sprite Mover attached to Sprite" + playerObjectName);
+        Debug.Log($"Current Screen Width/Height: {someMaxWidth}, {someMaxHeight}");
     }
 
     // Update is called once per frame
@@ -90,15 +91,11 @@ public class SpriteMover0 : MonoBehaviour
 
     void MoveToRandomViewportPosition()
     {
-        // 1. Get viewport resolution in pixels
-        int screenWidth  = Screen.width;   // e.g., 1920
-        int screenHeight = Screen.height;  // e.g., 1080
-
-        Debug.Log($"Current Screen width/height = ({screenWidth}/{screenHeight})");
+        Debug.Log($"Current Screen width/height = ({someMaxWidth}/{someMaxHeight})");
 
         // 2. Pick a random pixel position within that range
-        float randomPixelX = Random.Range(0f, screenWidth);
-        float randomPixelY = Random.Range(0f, screenHeight);
+        float randomPixelX = Random.Range(0f, someMaxWidth);
+        float randomPixelY = Random.Range(0f, someMaxHeight);
 
         // 3. Convert screen (pixel) space → world space
         //    z = 0 because we're in 2D, however worldPos is set to randomPixelX, randomPixelY, -10f due to the cam
