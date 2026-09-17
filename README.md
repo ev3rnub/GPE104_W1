@@ -26,6 +26,8 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/17/2026@11:18AM - Added private vars and updated some comments/misc code cleanup.
 
+09/17/2026@11:41AM - Built a test build for macOS of the project so far named CVUnity_P2M1.app.
+
 ## WIP
 
 This will descrive Work in Progress implementations. 
