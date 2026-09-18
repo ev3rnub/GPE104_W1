@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 203128674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15749, y: -0.87967, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -163,6 +163,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2f076023c464b608ee4466cef4886a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlerPlayer
+  somePawn: {fileID: 902675428}
+  moveFwd: 37
+  moveBak: 33
+  rotateLeft: 15
+  rotateRight: 18
+  teleport: 34
+  upArrow: 63
+  downArrow: 64
+  leftArrow: 61
+  rightArrow: 62
+  quitGame: 60
+  turboMultiplier: 2
+  someMaxWidth: 640
+  someMaxHeight: 480
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,9 +586,9 @@ Transform:
   m_GameObject: {fileID: 902675424}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.044140026, y: -1.1256604, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
@@ -590,6 +604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1342415885524c8da31d05f6ecca2b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PawnSpaceship
+  someController: {fileID: 0}
+  moveSpeed: 3
+  turnSpeed: 180
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

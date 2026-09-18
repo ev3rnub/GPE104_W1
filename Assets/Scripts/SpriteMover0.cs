@@ -1,7 +1,7 @@
 //Course: GPE104 
 //Prof: Matthew Henry 
 //Proj: Project 2 Milestone 1 - My First Sprite Mover
-//Student: Chad Verbus
+//Student: Chad V
 
 
 //imports

@@ -1,9 +1,14 @@
+//Course: GPE104 
+//Prof: Matthew Henry 
+//Proj: Project 2 Milestone 2 - Move it, Trooper
+//Student: Chad V
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ControllerPlayer : MyController
 {
-    private Camera cam; //get Camera referance named cam
+    private Camera cam; //get Camera referance named cam. 
 
     public Key moveFwd = Key.W;
     public Key moveBak = Key.S;
@@ -82,7 +87,7 @@ public class ControllerPlayer : MyController
             #endif
         }
         // check if teleport, T was pressed.
-        if (Keyboard.current[teleport].isPressed)
+        if (Keyboard.current[teleport].wasPressedThisFrame)
         {
             Debug.Log("T was pressed");
             //move at random
@@ -94,8 +99,10 @@ public class ControllerPlayer : MyController
             Debug.Log($"X = {randomPixelX}");
             Debug.Log($"Y = {randomPixelY}");
 
+            Vector3 somePos = new Vector3(randomPixelX, randomPixelY, 0f);
             // 3. Convert screen (pixel) space → world space
-            //    z = 0 because we're in 2D, however worldPos is set to randomPixelX, randomPixelY, -10f due to the cam
+            // z = 0 because we're in 2D, however worldPos is set to randomPixelX, randomPixelY, -10f due to the cam
+            // IF i dont use ScreenToWorldPoint the sprite gets moved off of the screen.
             Vector3 worldPos = cam.ScreenToWorldPoint(
                 new Vector3(randomPixelX, randomPixelY, 0f)
             );
@@ -110,7 +117,9 @@ public class ControllerPlayer : MyController
             somePawn.Teleport(worldPos);
         }
 
-        // check arrow keys
+        // check arrow keys for teleport
+        // [IDEA: "Teleport Mini GUI game where the teleport has to be 'charged', refocused, 
+        // then once charged/refocused press arrow to teleport in said direction]
         // up
         if (Keyboard.current[upArrow].wasPressedThisFrame)
         {
