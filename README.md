@@ -28,10 +28,14 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/17/2026@11:41AM - Built a test build for macOS of the project so far named CVUnity_P2M1.app.
 
+09/17/2026@10:21PM - Implemented WSAD Tank-Like Controls via a Pawn Controller model; Implemented Random Movement via Key T, Arrow teleportation via the arrow keys.
+
 ## WIP
 
 This will descrive Work in Progress implementations. 
 
-- WSAD Input Keyboard movement.
-- T - Move random movement from any key to "T" key.
+- Create asteroid obstacles that, if the player crashes into, they take damage.
+- Create a health system so that the player can take damage and a death system so they can be destroyed if they run out of health.
+- Create a GameManager
+- Simulate shooting a projectile
 
