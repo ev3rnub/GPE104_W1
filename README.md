@@ -2,8 +2,8 @@
 
 **Course:** GPE104  
 **Professor:** Matthew Henry  
-**Student:** Chad Verbus  
-**Engine:** Unity 6.6  
+**Student:** Chad V
+**Engine:** Unity 6.6
 
 ---
 

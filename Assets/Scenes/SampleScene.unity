@@ -604,8 +604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1342415885524c8da31d05f6ecca2b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PawnSpaceship
-  someController: {fileID: 0}
-  moveSpeed: 3
+  someController: {fileID: 203128676}
+  moveSpeed: 5
   turnSpeed: 180
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
