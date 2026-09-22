@@ -30,12 +30,17 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/17/2026@10:21PM - Implemented WSAD Tank-Like Controls via a Pawn Controller model; Implemented Random Movement via Key T, Arrow teleportation via the arrow keys.
 
+09/22/2026:02:37PM - Implemented health and death components. Defined an Astroid Prefab with a damamger component. Modified the player controller for null pawn checks to reduce misc unity errors.
+
 ## WIP
 
 This will descrive Work in Progress implementations. 
-
-- Create asteroid obstacles that, if the player crashes into, they take damage.
-- Create a health system so that the player can take damage and a death system so they can be destroyed if they run out of health.
-- Create a GameManager
-- Simulate shooting a projectile
+- Implement a GameManager.
+- Implement projectiles which damage astroids etc.
+- Implement a User Interface using screen space, world space canvas objects to display the players score and astroid health.
+- Implement a scoreing system.
+- Implement 2d sounds.
+- Implement 3d sounds.
+- Implement a settings screen w/sliders to change sound levels. 
+- Implementing player preferences savings.
 
