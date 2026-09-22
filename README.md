@@ -34,7 +34,7 @@ This will describe and list features that are implemented to a sufficient manner
 
 ## WIP
 
-This will descrive Work in Progress implementations. 
+This will describe Work in Progress implementations. 
 - Implement a GameManager.
 - Implement projectiles which damage astroids etc.
 - Implement a User Interface using screen space, world space canvas objects to display the players score and astroid health.
@@ -42,5 +42,5 @@ This will descrive Work in Progress implementations.
 - Implement 2d sounds.
 - Implement 3d sounds.
 - Implement a settings screen w/sliders to change sound levels. 
-- Implementing player preferences savings.
+- Implement player preferences persistance.
 
