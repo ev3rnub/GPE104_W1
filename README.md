@@ -32,6 +32,8 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/22/2026:02:37PM - Implemented health and death components. Defined an Astroid Prefab with a damamger component. Modified the player controller for null pawn checks to reduce misc unity errors.
 
+09/24/2026:08:57AM - Created a new branch p_2_ms_4. Created underlying folder structure to support a game manager and bullet/projectile component. 
+
 ## WIP
 
 This will describe Work in Progress implementations. 
