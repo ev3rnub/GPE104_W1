@@ -127,9 +127,6 @@ public class SpriteMover0 : MonoBehaviour
         {
             someMaxHeight = Screen.height;  // e.g., 1080
         }
-        
-
-        // 2. Move North a fixed amount of pixels..
     }
 
     void QuitGame()
