@@ -1,6 +1,5 @@
 //Course: GPE104 
-//Prof: Matthew Henry 
-//Proj: Project 2 Milestone 2 - Move it, Trooper
+//Prof: Matthew Henry
 //Student: Chad V
 
 using UnityEngine;

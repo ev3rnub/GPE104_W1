@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public abstract class Shooter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int hitP; //HitPoints of the Weapon
+    public int hullP; //HullPoints of the Weapon. 
+    public bool isA; //is Weapon Alive
+    // Shoot ([wpn_desc] m12 solid projectile made of K4 Sheetrock Steel)
+    public abstract void Shoot();
+
+
 }

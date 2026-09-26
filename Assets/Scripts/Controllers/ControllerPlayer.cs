@@ -1,6 +1,5 @@
 //Course: GPE104 
 //Prof: Matthew Henry 
-//Proj: Project 2 Milestone 2 - Move it, Trooper
 //Student: Chad V
 
 using UnityEngine;
@@ -20,6 +19,7 @@ public class ControllerPlayer : MyController
     public Key leftArrow = Key.LeftArrow;
     public Key rightArrow = Key.RightArrow;
     public Key quitGame = Key.Escape;
+    public Key shoot = Key.Space;
 
     public float turboMultiplier = 2f;
     public float someMaxWidth = Screen.width;
@@ -28,7 +28,12 @@ public class ControllerPlayer : MyController
     // like init, but called start!
     void Start()
     {
-        cam = Camera.main;
+        cam = Camera.main; // get ref to main camera
+
+        if (GameManager.someGameManager != null)
+        {
+            GameManager.someGameManager.controllerPlayer = this;
+        }
     }
 
     // called once per frame
@@ -56,6 +61,7 @@ public class ControllerPlayer : MyController
                 }
                 
             }
+
             // check if s is beig pressed. 
             if (Keyboard.current[moveBak].isPressed)
             {
@@ -88,6 +94,14 @@ public class ControllerPlayer : MyController
                 UnityEditor.EditorApplication.isPlaying = false;
                 #endif
             }
+            // shooting?
+           if (Keyboard.current[shoot].wasPressedThisFrame)
+            {
+                Debug.Log("PEW PEW");
+                somePawn.Shoot();
+            }
+
+
             // check if teleport, T was pressed.
             if (Keyboard.current[teleport].wasPressedThisFrame)
             {
