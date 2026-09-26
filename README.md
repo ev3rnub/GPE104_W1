@@ -34,11 +34,13 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/24/2026:08:57AM - Created a new branch p_2_ms_4. Created underlying folder structure to support a game manager and bullet/projectile component. 
 
+09/25/2026:07:04PM - Modified PlayerControler w/shooting input via space key. Modified Pawn
+
+09/25/2026:03:21PM - Implemented GameManager singleton, which keeps track of obstacles and gamestate, Projectile Shooting/Weapon firing via spacekey, my projectile is deployed and moves slowly initially and then speeds up once its completely deployed. Implemented deathDestroyManger.
+
 ## WIP
 
 This will describe Work in Progress implementations. 
-- Implement a GameManager.
-- Implement projectiles which damage astroids etc.
 - Implement a User Interface using screen space, world space canvas objects to display the players score and astroid health.
 - Implement a scoreing system.
 - Implement 2d sounds.
