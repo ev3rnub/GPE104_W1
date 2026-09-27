@@ -36,8 +36,6 @@ public class Bullet : MonoBehaviour
         {
             // Wait for exactly 3 seconds
             yield return new WaitForSeconds(0.3f);
-
-            // Change your variable here
             Debug.Log("CHANGED Bforce to 500");
             bulletForce = 600;
             rb.AddForce(-tf.up * bulletForce);

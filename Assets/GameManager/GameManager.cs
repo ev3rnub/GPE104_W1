@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public ControllerPlayer controllerPlayer; // get controller ref for player entity.
     public int someScore; 
     public TextMeshProUGUI someValue;
+    public TextMeshProUGUI someStatusMsg;
+    public TextMeshProUGUI someAstroidValue;
 
     //on awake(before start) if someGameManager 
     public void Awake()
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         // false and controllerPlayer.somePawn is not null, print Victory to the debug log, and set gameOver to true;
         if (obstacleList != null)
         {
+            Debug.Log($"Astroid Count: {obstacleList.Count}");
+
             if (obstacleList.Count <= 0 && controllerPlayer != null)
             {
                 if (gameOver == false && controllerPlayer.somePawn != null)
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
                 }
                 
             }
+            someAstroidValue.text = obstacleList.Count.ToString();
         }
    
 
