@@ -38,11 +38,11 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/25/2026:03:21PM - Implemented GameManager singleton, which keeps track of obstacles and gamestate, Projectile Shooting/Weapon firing via spacekey, my projectile is deployed and moves slowly initially and then speeds up once its completely deployed. Implemented deathDestroyManger.
 
+09/25/2026:07:33PM - Defined branch p2_ms_5, Implemented a User Interface using screen space, world space canvas objects to display the players score and astroid health and implemented a scoring system.
+
 ## WIP
 
-This will describe Work in Progress implementations. 
-- Implement a User Interface using screen space, world space canvas objects to display the players score and astroid health.
-- Implement a scoreing system.
+This will describe Work in Progress implementations.
 - Implement 2d sounds.
 - Implement 3d sounds.
 - Implement a settings screen w/sliders to change sound levels. 
