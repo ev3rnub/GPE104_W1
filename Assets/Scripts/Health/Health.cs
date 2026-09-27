@@ -3,6 +3,7 @@
 //Student: Chad V
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Health : MonoBehaviour
     public int minHealth = 0;
     public int currHealth;
     public Death death;
+    public Image healthBar;
+
 
 
     // init: init currHealth to maxHealth and grab a reference to the Component Death. 
@@ -20,6 +23,11 @@ public class Health : MonoBehaviour
         if (death != null)
         {
             Debug.Log($"{death}");
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = maxHealth/currHealth;
         }
     }
 
@@ -35,6 +43,11 @@ public class Health : MonoBehaviour
         {
             InstantDeath();
         }
+
+       if (healthBar != null)
+        {
+            healthBar.fillAmount = currHealth / maxHealth;
+        }
     }
 
     // Add health, if above maxhealth, reduce to maxhealth. 
@@ -49,6 +62,11 @@ public class Health : MonoBehaviour
         {
             currHealth = maxHealth;
         }
+
+       if (healthBar != null)
+        {
+            healthBar.fillAmount = currHealth / maxHealth;
+        }
     }
 
     // Instant death
@@ -56,6 +74,11 @@ public class Health : MonoBehaviour
     {
         currHealth = 0;
         death.Die();
+
+       if (healthBar != null)
+        {
+            healthBar.fillAmount = currHealth / maxHealth;
+        }
     }
 
 
@@ -63,5 +86,19 @@ public class Health : MonoBehaviour
     public void InstantHeal()
     {
         currHealth = maxHealth;
+
+       if (healthBar != null)
+        {
+            healthBar.fillAmount = currHealth / maxHealth;
+        }
+    }
+
+
+    void Update()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = currHealth / maxHealth;
+        }
     }
 }

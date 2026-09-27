@@ -3,18 +3,21 @@
 //Student: Chad V
 
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic; // for List<>
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager someGameManager;
-
-    // Obstacle list to keep track of astroids/obstacles
-    public List<Obstacle> obstacleList;  
-
+    public float someMaxWidth = Screen.width;
+    public float someMaxHeight = Screen.height;
+    
+    public List<Obstacle> obstacleList;  // Obstacle list to keep track of astroids/obstacles
     public bool gameOver = false;
-    // get controller ref for player entity.     
-    public ControllerPlayer controllerPlayer;
+    public ControllerPlayer controllerPlayer; // get controller ref for player entity.
+    public int someScore; 
+    public TextMeshProUGUI someValue;
 
     //on awake(before start) if someGameManager 
     public void Awake()
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
                 
             }
         }
+   
 
         // if game over is false and controller player is not null, and controllerPlayer.pawn is NULL, then fail as it means
         // our player died. 
@@ -59,6 +63,21 @@ public class GameManager : MonoBehaviour
                 Debug.Log("FAILURE!!");
                 gameOver = true;
             }
+        }
+
+        if (someValue != null)
+        {
+            someValue.text = "" + someScore;
+        }
+
+        if (gameOver)
+        {
+            Application.Quit();
+
+            // If running inside the Unity Editor
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
         }
     }
 }
