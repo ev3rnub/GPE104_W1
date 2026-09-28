@@ -51,8 +51,7 @@ This will describe and list features that are implemented to a sufficient manner
 ## WIP
 
 This will describe Work in Progress implementations.
-- Implement 2d sounds.
-- Implement 3d sounds.
-- Implement a settings screen w/sliders to change sound levels. 
-- Implement player preferences persistance.
+- main menu credits and win/lose screens.
+- screen-wrap, where the player pawn gets wrapped around to the other side of the screen.
+- winning or losing the game returns to the main menu
 
