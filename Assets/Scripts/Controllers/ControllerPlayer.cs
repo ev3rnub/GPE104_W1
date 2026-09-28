@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 
 public class ControllerPlayer : MyController
 {
@@ -24,6 +25,13 @@ public class ControllerPlayer : MyController
     public float turboMultiplier = 2f;
     public float someMaxWidth = Screen.width;
     public float someMaxHeight = Screen.height;
+
+    //not sure where I should put this. 
+    // oneshot sounds for teleport
+    [Header("Teleport Audio Settings")] //header for unity properties tab to set a category to keep organized. 
+    public AudioSource audioSource;
+    public AudioClip teleportSound;
+    public float soundVolume = 1f;
 
     // like init, but called start!
     void Start()
@@ -101,7 +109,6 @@ public class ControllerPlayer : MyController
                 somePawn.Shoot();
             }
 
-
             // check if teleport, T was pressed.
             if (Keyboard.current[teleport].wasPressedThisFrame)
             {
@@ -131,6 +138,7 @@ public class ControllerPlayer : MyController
                 worldPos.z = 0f; // [RESEARCH: "Why cam.ScreenToWorldPoint sets worldPos z to -10f, resetting it to 0."]
                 //Debug.Log($"NEW World Pos to move to: {worldPos}");
                 somePawn.Teleport(worldPos);
+                audioSource.PlayOneShot(teleportSound, soundVolume);
             }
 
             // check arrow keys for teleport

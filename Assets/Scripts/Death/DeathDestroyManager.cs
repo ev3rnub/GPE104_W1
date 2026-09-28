@@ -36,7 +36,6 @@ public class DeathDestroyManager : Death
     void Start()
     {
         obstacleToRemove = GetComponent<Obstacle>();
-        Debug.Log($"{obstacleToRemove}");
     }
 
     // Update is called once per frame

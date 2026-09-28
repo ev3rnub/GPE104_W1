@@ -40,7 +40,9 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/25/2026:07:33PM - Defined branch p2_ms_5, Implemented a User Interface using screen space, world space canvas objects to display the players score and astroid health and implemented a scoring system.
 
-09/26/2026:08:04AM - Added additional GUI elements; Added Astroid Count and a status message indicator at the bottom. NOTE: Currently working on issue with obstacle list which has 2 null entries, WIP.
+09/26/2026:08:04AM - Added additional GUI elements; Added Astroid Count and a status message indicator at the bottom.
+
+09/28/2026:02:49PM - Implemented 2d/3d sounds, a settings screen with volume sliders. Implemented PlayerPrefs for volume sliders. 
 
 ## WIP
 
