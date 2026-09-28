@@ -16,6 +16,10 @@ This is the an ongoing project for GPE104. The goal of this project is to demons
 - Basic game systems (input, movement, interaction)
 - Iteration and polish (UI/UX, feedback, basic game feel)
 
+## MUSIC Credit
+Music created by Chad Verbus using Reason 13. 
+SoundFX created via https://sfxr.me
+
 ## Project Features
 
 This will describe and list features that are implemented to a sufficient manner.
