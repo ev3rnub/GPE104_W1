@@ -21,6 +21,7 @@ public class ControllerPlayer : MyController
     public Key rightArrow = Key.RightArrow;
     public Key quitGame = Key.Escape;
     public Key shoot = Key.Space;
+    public Key options = Key.O;
 
     public float turboMultiplier = 2f;
     public float someMaxWidth = Screen.width;
@@ -32,12 +33,14 @@ public class ControllerPlayer : MyController
     public AudioSource audioSource;
     public AudioClip teleportSound;
     public float soundVolume = 1f;
+    public bool optionsGUIvisible = false;
+    public GameObject optionsGUI;
 
     // like init, but called start!
     void Start()
     {
         cam = Camera.main; // get ref to main camera
-
+        optionsGUI.SetActive(false); //hide optionsGUI.
         if (GameManager.someGameManager != null)
         {
             GameManager.someGameManager.controllerPlayer = this;
@@ -174,7 +177,22 @@ public class ControllerPlayer : MyController
                 Vector3 somePos = somePawn.transform.position;
                 somePos.x += 3;
                 somePawn.Teleport(somePos);
-            } 
+            }
+            //Options window
+
+            if (Keyboard.current[options].wasPressedThisFrame)
+            {
+                if (optionsGUIvisible == true)
+                {
+                    optionsGUI.SetActive(false);
+                    optionsGUIvisible = false;
+                }
+                else
+                {
+                    optionsGUI.SetActive(true);
+                    optionsGUIvisible = true;
+                }
+            }
         }       
     }
 }

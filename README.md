@@ -46,7 +46,9 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/26/2026:08:04AM - Added additional GUI elements; Added Astroid Count and a status message indicator at the bottom.
 
-09/28/2026:02:49PM - Implemented 2d/3d sounds, a settings screen with volume sliders. Implemented PlayerPrefs for volume sliders. 
+09/28/2026:02:49PM - Implemented 2d/3d sounds, a settings screen with volume sliders. Implemented PlayerPrefs for volume sliders.
+
+09/28/2026:07:42PM - Implemented options view/hide functioality. 
 
 ## WIP
 

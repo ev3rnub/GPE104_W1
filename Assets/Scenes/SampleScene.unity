@@ -410,12 +410,15 @@ MonoBehaviour:
   rightArrow: 62
   quitGame: 60
   shoot: 1
-  turboMultiplier: 2
+  options: 29
+  turboMultiplier: 4
   someMaxWidth: 460
   someMaxHeight: 630
   audioSource: {fileID: 203128677}
   teleportSound: {fileID: 8300000, guid: fed16d805bf004d3c9a7fcf0e78c2741, type: 3}
   soundVolume: 1
+  optionsGUIvisible: 0
+  optionsGUI: {fileID: 19545197}
 --- !u!82 &203128677
 AudioSource:
   m_ObjectHideFlags: 0
