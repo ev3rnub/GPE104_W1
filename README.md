@@ -55,7 +55,9 @@ This will describe and list features that are implemented to a sufficient manner
 ## WIP
 
 This will describe Work in Progress implementations.
-- main menu credits and win/lose screens.
-- screen-wrap, where the player pawn gets wrapped around to the other side of the screen.
+- win/lose screens
 - winning or losing the game returns to the main menu
+- Project 3 Milestone 1 - In 3D!
+- Project 3 Milestone 2 - More Features
+- Project 3 Final Milestone - Phantom Recon Omega Force Heroes
 
