@@ -6,13 +6,5 @@ public class Obstacle : MonoBehaviour
     void Start()
     {
         GameManager.someGameManager.obstacleList.Add(this);
-        Debug.Log($"ADDING {this}");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        
     }
 }

@@ -7,6 +7,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
+    public GameManager someGameManager;
     public float bulletForce = 100;
     private Rigidbody2D rb;
     private Transform tf;
@@ -18,6 +19,8 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         tf = GetComponent<Transform>();
         death = GetComponent<Death>();
+
+        GameManager.someGameManager.bulletList.Add(this);
 
         if (rb != null && tf != null)
         {
@@ -32,7 +35,7 @@ public class Bullet : MonoBehaviour
         }
 
         // after .3 seconds increase bullet force to 500
-         IEnumerator ChangeVariableAfterTime()
+        IEnumerator ChangeVariableAfterTime()
         {
             // Wait for exactly 3 seconds
             yield return new WaitForSeconds(0.3f);
@@ -44,7 +47,7 @@ public class Bullet : MonoBehaviour
         // after 10 seconds destroy bullet.
         IEnumerator DestroyAfterTime()
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(5f);
             Debug.Log($"{this} Bullet has died due to not impacting anything");
             death.Die();
         }

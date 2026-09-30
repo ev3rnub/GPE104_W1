@@ -7,7 +7,7 @@ public class ShooterBullet : Shooter
 
     public override void Shoot()
     {
-        if (bulletPrefab != null && bulletSpawnPoint != null)
+        if (bulletPrefab != null && bulletSpawnPoint != null && GameManager.someGameManager != null)
         {
             Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);    
         }
@@ -16,7 +16,5 @@ public class ShooterBullet : Shooter
             //OOAC (replace debug log call w/custom GUI status message center or box etc.)
             Debug.Log("[STATUS] Out of AMMO or CHARGE!");
         }
-        
     }
-
 }

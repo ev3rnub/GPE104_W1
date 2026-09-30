@@ -10,9 +10,18 @@ public class PawnSpaceship : Pawn
     public float moveSpeed = 3;
     public float turnSpeed = 180;
     public Transform tf;
-    private Shooter sh; 
+    private Shooter sh;
+    private ScreenWrap screenWrapComponent;
 
 
+    void LateUpdate()
+    {
+       // Handle screen wrapping if component exists                                                                                                            
+       if (screenWrapComponent != null)                                                                                                                         
+       {                                                                                                                                                        
+           screenWrapComponent.HandleWrap();                                                                                                                    
+       }
+    }
     // move transform by some Vector3 * moveSpeed * Time.deltaTime.
     public override void Move(Vector3 someVec3)
     {
@@ -46,5 +55,6 @@ public class PawnSpaceship : Pawn
     {
         tf = GetComponent<Transform>();
         sh = GetComponent<Shooter>();
+        screenWrapComponent = GetComponent<ScreenWrap>(); 
     }
 }

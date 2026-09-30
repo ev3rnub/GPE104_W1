@@ -8,6 +8,7 @@ public class DeathDestroy : Death
 {
     public override void Die()
     {
+        Debug.Log($"in DIE: destroying {gameObject}");
         Destroy(gameObject);
     }
 }

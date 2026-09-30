@@ -50,6 +50,8 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/28/2026:07:42PM - Implemented options view/hide functioality. 
 
+09/30/2026:03:14PM - Implemented Main Menu screen, Credits pane, Screenwrap for pawnStarshp and astroids, random size astroid spawning with randommized movement, 4 stages where more astroids are spawned with each passing stage. 
+
 ## WIP
 
 This will describe Work in Progress implementations.

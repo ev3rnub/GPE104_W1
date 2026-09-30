@@ -1,9 +1,11 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class DeathDestroyManager : Death
 {
     private Obstacle obstacleToRemove;
+    private Bullet bulletToRemove;
     public int someScoreValue = 10;
 
     public override void Die()
@@ -16,31 +18,24 @@ public class DeathDestroyManager : Death
             }
             GameManager.someGameManager.someScore += someScoreValue;
             GameManager.someGameManager.someStatusMsg.text = $"Obtained {someScoreValue} points, total is now {GameManager.someGameManager.someScore}";
-            StartCoroutine(ResetStatusMsg());
+            if (GameManager.someGameManager.bulletList != null)
+            {
+                GameManager.someGameManager.bulletList.Remove(bulletToRemove);
+                //convert our string to an int
+                string numberString = GameManager.someGameManager.someBulletValue.text;
+                int number = Convert.ToInt32(numberString);
+                number += 1;
+                GameManager.someGameManager.someBulletValue.text = number.ToString();
+            }
         }
         //removes gameobject from scene.
         Destroy(gameObject);
-
     }
-
-    // after .3 seconds increase bullet force to 500
-         IEnumerator ResetStatusMsg()
-        {
-            // Wait for exactly 1 seconds
-            yield return new WaitForSeconds(1f);
-
-            GameManager.someGameManager.someStatusMsg.text = "";
-        }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         obstacleToRemove = GetComponent<Obstacle>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        bulletToRemove = GetComponent<Bullet>();
     }
 }

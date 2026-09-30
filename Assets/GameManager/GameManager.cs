@@ -6,28 +6,44 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic; // for List<>
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
-{
+{   
+    [Header("GameObjects")]
     public static GameManager someGameManager;
-    public float someMaxWidth = Screen.width;
-    public float someMaxHeight = Screen.height;
     public GameObject astroidPrefab;
-    public int astroidSpawnCnt = 3;
-
-    
-    public List<Obstacle> obstacleList;  // Obstacle list to keep track of astroids/obstacles
-    public bool gameOver = false;
+    public GameObject bulletPrefab;
     public ControllerPlayer controllerPlayer; // get controller ref for player entity.
-    public int someScore; 
     public TextMeshProUGUI someValue;
     public TextMeshProUGUI someStatusMsg;
     public TextMeshProUGUI someAstroidValue;
-
-    //player pawn reference to spawn new astroids later. 
+    public TextMeshProUGUI someBulletValue;
+    public TextMeshProUGUI someStageValue;
     public Pawn someSpaceShipPawn;
+    
+    [Header("Lists")]
+    public List<Obstacle> obstacleList;  // Obstacle list to keep track of astroids/obstacles
+    public List<Bullet> bulletList; // A Bullet list to keep limit how many projectiles we spawn if the player holds down space.
+    public List<float> someStageList;
+    
+    [Header("Int's")]
+    public int someScore;
+    public int totalAstroidCnt = 5;
+    public int stage = 1;
 
-    //on awake(before start) if someGameManager 
+    [Header("Floats")]
+    public float someMaxWidth = Screen.width;
+    public float someMaxHeight = Screen.height;
+    public float someStageSecTime = 2f;
+
+
+    [Header("Bools")]
+    public bool gameOver = false;
+
+
+    //on awake(before start) if someGameManager is null assign gamemanger to this, and flag it to no destroy,
+    //delete any duplicates. 
     public void Awake()
     {
         obstacleList = new List<Obstacle>();
@@ -45,25 +61,58 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // WIP/Future use;
-        // Debug.Log("in START");
-
-        // for (int i = 0; i < astroidSpawnCnt; i++)
-        // {                                                                                                                                                            
-        //    SpawnAstroid();
-        // }  
+        StartCoroutine(StageOne(someStageSecTime));
+        StartCoroutine(StageTwo(someStageSecTime * 4));
+        StartCoroutine(StageThree(someStageSecTime * 8));
+        StartCoroutine(StageFour(someStageSecTime * 10));
     }
 
+    IEnumerator StageOne(float someSeconds)
+    {
+        yield return new WaitForSeconds(someSeconds);
+        totalAstroidCnt += 5;
+        someStatusMsg.text = "Stage One Completed!";
+        someStageValue.text = stage.ToString();
+    }
+
+    IEnumerator StageTwo(float someSeconds)
+    {
+        yield return new WaitForSeconds(someSeconds);
+        totalAstroidCnt += 10;
+        someStatusMsg.text = "Stage Two Completed!";
+        stage = 2;
+        someStageValue.text = stage.ToString();
+    }
+
+    IEnumerator StageThree(float someSeconds)
+    {
+        yield return new WaitForSeconds(someSeconds);
+        totalAstroidCnt += 15;
+        someStatusMsg.text = "Stage Three Completed!";
+        stage = 3;
+        someStageValue.text = stage.ToString();
+    }
+
+    IEnumerator StageFour(float someSeconds)
+    {
+        yield return new WaitForSeconds(someSeconds);
+        totalAstroidCnt += 30;
+        someStatusMsg.text = "OVERTIME STAGE!";
+        stage = 4;
+        someStageValue.text = stage.ToString();
+    }
+    
     void Update()
     {
 
-        CleanupObstacleList(); // for some reason I'm getting duplicate astroids in my obstacleList. Need to troubleshoot  this. 
+        CleanupObstacleList();
+        SpawnAstroid();
         // if obstacle list is not null and obstacle count is less than 0 and controlerPlayer is not null, if Game over does not equal
         // false and controllerPlayer.somePawn is not null, print Victory to the debug log, and set gameOver to true;
         if (obstacleList != null)
         {
 
-            Debug.Log($"Astroid Count: {obstacleList.Count}");
+            //Debug.Log($"Astroid Count: {obstacleList.Count}");
 
             if (obstacleList.Count <= 0 && controllerPlayer != null)
             {
@@ -75,6 +124,12 @@ public class GameManager : MonoBehaviour
                 
             }
             someAstroidValue.text = obstacleList.Count.ToString();
+        }
+
+        if (bulletList != null)
+        {
+            //Debug.Log($"Bullet Count: {bulletList.Count}");
+            someBulletValue.text = bulletList.Count.ToString();
         }
    
 
@@ -116,23 +171,58 @@ public class GameManager : MonoBehaviour
         obstacleList.RemoveAll(item => item == null);
    }
 
+    //Astroid spawning
     void SpawnAstroid()
-    {
-        if (astroidPrefab != null)
-        {
-           float someXRange = Random.Range(-10f, 10f);                                                                                                              
-           float someYRange = Random.Range(-5f, 5f);                                                                                                                
-           Vector3 somePos = new Vector3(someXRange, someYRange, 0f);                                                                                               
+   {
+       if (astroidPrefab != null && someAstroidValue.text != null)
+       {
+           //convert our string to an int
+           string numberString = someAstroidValue.text;
+           int number = Convert.ToInt32(numberString);
+           if (number < totalAstroidCnt)
+           {
+               Vector3 spawnPos = new Vector3(0f, 0f, 0f);
+               float minDistance = 5f; // Minimum distance from player
                                                                                                                                                                     
-           // Instantiate with position and add to obstacle list                                                                                                    
-           GameObject newAstroid = Instantiate(astroidPrefab, somePos, Quaternion.identity);                                                                        
-                                                                                                                                                                    
-           // Get the Obstacle component and add to list                                                                                                            
-           Obstacle obstacle = newAstroid.GetComponent<Obstacle>();                                                                                                 
-           if (obstacle != null)                                                                                                                                    
-           {                                                                                                                                                        
-               obstacleList.Add(obstacle);                                                                                                                          
+               // keep generating random positions until we find one that's safe
+               bool safeSpawn = false;
+               while (!safeSpawn)
+               {
+                   float someXRange = UnityEngine.Random.Range(-10f, 10f);
+                   float someYRange = UnityEngine.Random.Range(-5f, 5f);
+                   spawnPos = new Vector3(someXRange, someYRange, 0f);
+
+                   // check if player exists and if spawn position is too close
+                   if (controllerPlayer != null && controllerPlayer.somePawn != null)
+                   {
+                        // euclidean distance (straight-line distance)
+                       float distance = Vector3.Distance(spawnPos, controllerPlayer.somePawn.transform.position);
+                       if (distance >= minDistance)
+                       {
+                           safeSpawn = true;
+                       }
+                   }
+                   else
+                   {
+                       // no pawn, safe to spawn
+                       safeSpawn = true;
+                   }
+               }
+
+               // instantiate with position and add to our obstacle list
+
+               GameObject newAstroid = Instantiate(astroidPrefab, spawnPos, Quaternion.identity);
+               float someRandomRange = UnityEngine.Random.Range(0.25f, 2.0f);
+               newAstroid.transform.localScale = new Vector3(someRandomRange, someRandomRange, someRandomRange);
+
+               // get the Obstacle component and add to our list
+
+               Obstacle obstacle = newAstroid.GetComponent<Obstacle>();
+               if (obstacle != null)
+               {
+                  obstacleList.Add(obstacle);
+               }
            }
-        }
-    }
+       }
+   }
 }
