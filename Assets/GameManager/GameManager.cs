@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageOne(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 5;
+        totalAstroidCnt += 2;
         someStatusMsg.text = "Stage One Completed!";
         someStageValue.text = stage.ToString();
     }
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageTwo(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 10;
+        totalAstroidCnt += 4;
         someStatusMsg.text = "Stage Two Completed!";
         stage = 2;
         someStageValue.text = stage.ToString();
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageThree(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 15;
+        totalAstroidCnt += 6;
         someStatusMsg.text = "Stage Three Completed!";
         stage = 3;
         someStageValue.text = stage.ToString();
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageFour(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 30;
+        totalAstroidCnt += 8;
         someStatusMsg.text = "OVERTIME STAGE!";
         stage = 4;
         someStageValue.text = stage.ToString();
@@ -174,55 +174,55 @@ public class GameManager : MonoBehaviour
     //Astroid spawning
     void SpawnAstroid()
    {
-       if (astroidPrefab != null && someAstroidValue.text != null)
-       {
-           //convert our string to an int
-           string numberString = someAstroidValue.text;
-           int number = Convert.ToInt32(numberString);
-           if (number < totalAstroidCnt)
-           {
-               Vector3 spawnPos = new Vector3(0f, 0f, 0f);
-               float minDistance = 5f; // Minimum distance from player
-                                                                                                                                                                    
-               // keep generating random positions until we find one that's safe
-               bool safeSpawn = false;
-               while (!safeSpawn)
-               {
-                   float someXRange = UnityEngine.Random.Range(-10f, 10f);
-                   float someYRange = UnityEngine.Random.Range(-5f, 5f);
-                   spawnPos = new Vector3(someXRange, someYRange, 0f);
+        Vector3 spawnPos = new Vector3(0f, 0f, 0f);
+        if (astroidPrefab != null && someAstroidValue.text != null)
+        {
+            string numberString = someAstroidValue.text;
+            int number = Convert.ToInt32(numberString);
 
-                   // check if player exists and if spawn position is too close
-                   if (controllerPlayer != null && controllerPlayer.somePawn != null)
-                   {
-                        // euclidean distance (straight-line distance)
-                       float distance = Vector3.Distance(spawnPos, controllerPlayer.somePawn.transform.position);
-                       if (distance >= minDistance)
-                       {
-                           safeSpawn = true;
-                       }
-                   }
-                   else
-                   {
-                       // no pawn, safe to spawn
-                       safeSpawn = true;
-                   }
-               }
+            if (number < totalAstroidCnt)
+            {
+                float minDistance = 5f;
 
-               // instantiate with position and add to our obstacle list
+                bool safeSpawn = false;
+                while (!safeSpawn)
+                {
+                    float someXRange = UnityEngine.Random.Range(-10f, 10f);
+                    float someYRange = UnityEngine.Random.Range(-5f, 5f);
+                    spawnPos = new Vector3(someXRange, someYRange, 0f);
 
-               GameObject newAstroid = Instantiate(astroidPrefab, spawnPos, Quaternion.identity);
-               float someRandomRange = UnityEngine.Random.Range(0.25f, 2.0f);
-               newAstroid.transform.localScale = new Vector3(someRandomRange, someRandomRange, someRandomRange);
+                    if (controllerPlayer != null && controllerPlayer.somePawn != null)
+                    {
+                        float distance = Vector3.Distance(spawnPos, controllerPlayer.somePawn.transform.position);
+                        if (distance >= minDistance)
+                        {
+                            safeSpawn = true;
+                        }
+                    }
+                    else
+                    {
+                        safeSpawn = true;
+                    }
+                }
 
-               // get the Obstacle component and add to our list
+                // Instantiate with position and add to obstacle list
+                GameObject newAstroid = Instantiate(astroidPrefab, spawnPos, Quaternion.identity);
+                float someFloat = UnityEngine.Random.Range(0.25f, 2f);
+                newAstroid.transform.localScale = new Vector3(someFloat, someFloat, someFloat);
 
-               Obstacle obstacle = newAstroid.GetComponent<Obstacle>();
-               if (obstacle != null)
-               {
-                  obstacleList.Add(obstacle);
-               }
-           }
-       }
-   }
+                // Get the Obstacle component and add to list
+                Obstacle obstacle = newAstroid.GetComponent<Obstacle>();
+                if (obstacle != null)
+                {
+                    obstacleList.Add(obstacle);
+                }
+
+              AsteroidBreak asteroidBreakScript = newAstroid.GetComponent<AsteroidBreak>();                                                                        
+               if (asteroidBreakScript != null)                                                                                                                     
+               {                                                                                                                                                    
+                   asteroidBreakScript.astroidPrefab = astroidPrefab;                                                                                               
+               } 
+            }
+        }
+    }
 }

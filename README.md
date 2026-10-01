@@ -52,12 +52,11 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/30/2026:03:14PM - Implemented Main Menu screen, Credits pane, Screenwrap for pawnStarshp and astroids, random size astroid spawning with randommized movement, 4 stages where more astroids are spawned with each passing stage. 
 
+09/30/2026:06:33PM - Implemented a EnemyAI to chase payer, Implemented astroid spliting so when the player shoots an astroid it splits into two seperate astroids.
+
 ## WIP
 
 This will describe Work in Progress implementations.
 - win/lose screens
 - winning or losing the game returns to the main menu
-- Project 3 Milestone 1 - In 3D!
-- Project 3 Milestone 2 - More Features
-- Project 3 Final Milestone - Phantom Recon Omega Force Heroes
 
