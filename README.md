@@ -57,9 +57,3 @@ This will describe and list features that are implemented to a sufficient manner
 10/01/2026:09:23AM - Implemented player lives, respawning, and a lose screen contianing stats and a restart and quit button. 
 
 10/01/2026:10:29AM - Implemented Win Screen.
-
-## WIP
-
-This will describe Work in Progress implementations.
-- win screen
-
