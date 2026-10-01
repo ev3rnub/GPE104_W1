@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         StartCoroutine(StageOne(someStageSecTime));
-        // StartCoroutine(StageTwo(someStageSecTime * 4));
+        StartCoroutine(StageTwo(someStageSecTime * 4));
         // StartCoroutine(StageThree(someStageSecTime * 8));
         // StartCoroutine(StageFour(someStageSecTime * 10));
 
@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
             someWinGameScreen.SetActive(false);
         }
 
-        InitGame(); // restart stage timers, refresh lives UI, re-hook buttons
+        InitGame();
     }
 
     void UpdateLivesUI()
