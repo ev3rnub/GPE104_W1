@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager someGameManager;
     public GameObject astroidPrefab;
     public GameObject bulletPrefab;
+    public GameObject enemyPrefab;
     public ControllerPlayer controllerPlayer; // get controller ref for player entity.
     public TextMeshProUGUI someValue;
     public TextMeshProUGUI someStatusMsg;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Int's")]
     public int someScore;
-    public int totalAstroidCnt = 5;
+    public int enemyCount = 2;
     public int stage = 1;
     public int lives = 2;
 
@@ -51,6 +52,8 @@ public class GameManager : MonoBehaviour
     public float someMaxWidth = Screen.width;
     public float someMaxHeight = Screen.height;
     public float someStageSecTime = 2f;
+    public float ufoChancePercent = 70f;   // % chance each enemy is a UFO
+    public float largeAsteroidScale = 2f;
 
 
     [Header("Bools")]
@@ -90,7 +93,12 @@ public class GameManager : MonoBehaviour
         if (someWinQuitButton != null)
         {
             someWinQuitButton.onClick.AddListener(QuitGame);
-        }      
+        }
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            SpawnEnemy();
+        }        
     }
     //on awake(before start) if someGameManager is null assign gamemanger to this, and flag it to no destroy,
     //delete any duplicates. 
@@ -151,7 +159,7 @@ public class GameManager : MonoBehaviour
 
         // Reset game state to the scene's Inspector defaults
         someScore = other.someScore;
-        totalAstroidCnt = other.totalAstroidCnt;
+        enemyCount = other.enemyCount;
         stage = other.stage;
         lives = other.lives;
         gameOver = false;
@@ -189,7 +197,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageOne(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 1;
+        enemyCount += 1;
         someStatusMsg.text = "Stage One Completed!";
         someStageValue.text = stage.ToString();
     }
@@ -197,7 +205,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageTwo(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 2;
+        enemyCount += 2;
         someStatusMsg.text = "Stage Two Completed!";
         stage = 2;
         someStageValue.text = stage.ToString();
@@ -206,7 +214,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageThree(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 3;
+        enemyCount += 3;
         someStatusMsg.text = "Stage Three Completed!";
         stage = 3;
         someStageValue.text = stage.ToString();
@@ -215,7 +223,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageFour(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 4;
+        enemyCount += 4;
         someStatusMsg.text = "OVERTIME STAGE!";
         stage = 4;
         someStageValue.text = stage.ToString();
@@ -225,7 +233,7 @@ public class GameManager : MonoBehaviour
     {
 
         CleanupObstacleList();
-        //SpawnAstroid();
+        //SpawnEnemy();
         // if obstacle list is not null and obstacle count is less than 0 and controlerPlayer is not null, if Game over does not equal
         // false and controllerPlayer.somePawn is not null, print Victory to the debug log, and set gameOver to true;
         if (obstacleList != null)
@@ -336,58 +344,61 @@ public class GameManager : MonoBehaviour
         obstacleList.RemoveAll(item => item == null);
    }
 
-    //Astroid spawning
-    void SpawnAstroid()
-   {
-        Vector3 spawnPos = new Vector3(0f, 0f, 0f);
-        if (astroidPrefab != null && someAstroidValue.text != null)
+    //Enemy spawning
+    void SpawnEnemy()
+    {
+        if (astroidPrefab == null) return;
+
+        // Find a spawn point away from the player
+        Vector3 spawnPos = Vector3.zero;
+        float minDistance = 5f;
+        bool safeSpawn = false;
+        while (!safeSpawn)
         {
-            string numberString = someAstroidValue.text;
-            int number = Convert.ToInt32(numberString);
+            float someXRange = UnityEngine.Random.Range(-10f, 10f);
+            float someYRange = UnityEngine.Random.Range(-5f, 5f);
+            spawnPos = new Vector3(someXRange, someYRange, 0f);
 
-            if (number < totalAstroidCnt)
+            if (controllerPlayer != null && controllerPlayer.somePawn != null)
             {
-                float minDistance = 5f;
-
-                bool safeSpawn = false;
-                while (!safeSpawn)
+                float distance = Vector3.Distance(spawnPos, controllerPlayer.somePawn.transform.position);
+                if (distance >= minDistance)
                 {
-                    float someXRange = UnityEngine.Random.Range(-10f, 10f);
-                    float someYRange = UnityEngine.Random.Range(-5f, 5f);
-                    spawnPos = new Vector3(someXRange, someYRange, 0f);
-
-                    if (controllerPlayer != null && controllerPlayer.somePawn != null)
-                    {
-                        float distance = Vector3.Distance(spawnPos, controllerPlayer.somePawn.transform.position);
-                        if (distance >= minDistance)
-                        {
-                            safeSpawn = true;
-                        }
-                    }
-                    else
-                    {
-                        safeSpawn = true;
-                    }
+                    safeSpawn = true;
                 }
-
-                // Instantiate with position and add to obstacle list
-                GameObject newAstroid = Instantiate(astroidPrefab, spawnPos, Quaternion.identity);
-                float someFloat = UnityEngine.Random.Range(0.25f, 2f);
-                newAstroid.transform.localScale = new Vector3(someFloat, someFloat, someFloat);
-
-                // Get the Obstacle component and add to list
-                Obstacle obstacle = newAstroid.GetComponent<Obstacle>();
-                if (obstacle != null)
-                {
-                    obstacleList.Add(obstacle);
-                }
-
-              AsteroidBreak asteroidBreakScript = newAstroid.GetComponent<AsteroidBreak>();                                                                        
-               if (asteroidBreakScript != null)                                                                                                                     
-               {                                                                                                                                                    
-                   asteroidBreakScript.astroidPrefab = astroidPrefab;                                                                                               
-               } 
+            }
+            else
+            {
+                safeSpawn = true;
             }
         }
-    }
+
+        // Roll the dice: UFO or large asteroid?
+        bool isUfo = enemyPrefab != null &&
+                     UnityEngine.Random.Range(0f, 100f) < ufoChancePercent;
+        Debug.Log($"isUfo = {isUfo}");
+
+        GameObject prefabToSpawn = isUfo ? enemyPrefab : astroidPrefab;
+        GameObject newEnemy = Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
+
+        if (!isUfo)
+        {
+            // Large asteroid. AsteroidBreak reads this scale in its Start().
+            newEnemy.transform.localScale = Vector3.one * largeAsteroidScale;
+        }
+
+        // Track it so the win condition counts it
+        Obstacle obstacle = newEnemy.GetComponent<Obstacle>();
+        if (obstacle != null)
+        {
+            obstacleList.Add(obstacle);
+        }
+
+        // Only asteroids have this; for UFOs it's simply null.
+        AsteroidBreak asteroidBreakScript = newEnemy.GetComponent<AsteroidBreak>();
+        if (asteroidBreakScript != null)
+        {
+            asteroidBreakScript.astroidPrefab = astroidPrefab;
+        }
+}
 }

@@ -25,6 +25,9 @@ public class MainMenuScreen : MonoBehaviour
     [Header("Options Screen HotKey")]
     public Key options = Key.O;
 
+    [Header("Play HotKey")]
+    public Key playEnter = Key.Enter;
+
     [Header("Quit Game Hotkey")]
     public Key quitGame = Key.Escape;
 
@@ -86,6 +89,13 @@ public class MainMenuScreen : MonoBehaviour
         if (Keyboard.current[options].wasPressedThisFrame)
         {
             OnOptionsBtnPressed();
+        }
+
+        // check if enter key is pressed key(Enter)
+
+        if (Keyboard.current[playEnter].wasPressedThisFrame)
+        {
+            OnPlayBtnPressed();
         }
     }
 

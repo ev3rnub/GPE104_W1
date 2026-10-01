@@ -1153,18 +1153,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1002717375556753020, guid: e111104a59307456abf7269702b1b826, type: 3}
   m_PrefabInstance: {fileID: 1603703486}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &441012963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441012954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b09b2f13485f423691f2759d84141c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DeathDestroy
 --- !u!1 &495847659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,6 +2379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   astroidPrefab: {fileID: 6378523374079188873, guid: 285846a827ae146db95c879cdbb81459, type: 3}
   bulletPrefab: {fileID: 1808004132613100804, guid: fb35cad071c51436bb379aec5397341e, type: 3}
+  enemyPrefab: {fileID: 441012954}
   controllerPlayer: {fileID: 203128676}
   someValue: {fileID: 1464318705}
   someStatusMsg: {fileID: 894311582}
@@ -2413,12 +2402,14 @@ MonoBehaviour:
   bulletList: []
   someStageList: []
   someScore: 0
-  totalAstroidCnt: 5
+  enemyCount: 5
   stage: 1
   lives: 2
   someMaxWidth: 2702
   someMaxHeight: 531
   someStageSecTime: 2
+  ufoChancePercent: 70
+  largeAsteroidScale: 2
   gameOver: 0
   winGame: 1
 --- !u!82 &661087092
@@ -5326,17 +5317,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAI
       objectReference: {fileID: 0}
-    - target: {fileID: 4147038231885003636, guid: e111104a59307456abf7269702b1b826, type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4266291954171497169, guid: e111104a59307456abf7269702b1b826, type: 3}
       propertyPath: m_Creator
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071322064618416154, guid: e111104a59307456abf7269702b1b826, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5176381251241717946, guid: e111104a59307456abf7269702b1b826, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5344,7 +5327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5176381251241717946, guid: e111104a59307456abf7269702b1b826, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 5.7
       objectReference: {fileID: 0}
     - target: {fileID: 5176381251241717946, guid: e111104a59307456abf7269702b1b826, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5378,17 +5361,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6414670783289626557, guid: e111104a59307456abf7269702b1b826, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1002717375556753020, guid: e111104a59307456abf7269702b1b826, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 441012963}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e111104a59307456abf7269702b1b826, type: 3}
 --- !u!1 &1624685038
 GameObject:
@@ -6631,6 +6607,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5421673558405998072, guid: 285846a827ae146db95c879cdbb81459, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721673472431409479, guid: 285846a827ae146db95c879cdbb81459, type: 3}
+      propertyPath: minHealth
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6378523374079188873, guid: 285846a827ae146db95c879cdbb81459, type: 3}

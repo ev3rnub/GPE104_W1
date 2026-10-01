@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
-  minHealth: 1
+  minHealth: 0
   currHealth: 100
   death: {fileID: 0}
   healthBar: {fileID: 576169358053061737}
@@ -688,3 +688,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f718b634e9347758be83030f5cabca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AstroidBreak
+  astroidSize: 0
+  minSize: 0.25
+  astroidPrefab: {fileID: 0}
+  breakCount: 2
+  broken: 0
+  childMaxHealth: 50

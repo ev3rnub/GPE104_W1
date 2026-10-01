@@ -58,4 +58,8 @@ This will describe and list features that are implemented to a sufficient manner
 
 10/01/2026:10:29AM - Implemented Win Screen.
 
-10/01/2026:10:40AM - changed quitgame to goto main menu instead of closing the applicaiton. 
+10/01/2026:10:40AM - changed quitgame to goto main menu instead of closing the applicaiton.
+
+10/01/2026:11:56AM - Implemented Hotkey Enter to trigger the start of the game. 
+
+10/01/2026:01:04PM - Implemented Additional Astroid/Enemy spawning so now theres a chance of spawning an enemy or large astroid. Fixed logic in health script to properly show the remaining percentage of health. 

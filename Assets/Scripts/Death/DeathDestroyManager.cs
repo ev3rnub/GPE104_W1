@@ -10,6 +10,11 @@ public class DeathDestroyManager : Death
 
     public override void Die()
     {
+        AsteroidBreak asteroidBreak = GetComponent<AsteroidBreak>();
+        if (asteroidBreak != null)
+        {
+            asteroidBreak.Break();
+        }
         if (GameManager.someGameManager != null)
         {
             if (GameManager.someGameManager.obstacleList != null && obstacleToRemove != null)

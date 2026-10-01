@@ -27,7 +27,7 @@ public class Health : MonoBehaviour
 
         if (healthBar != null)
         {
-            healthBar.fillAmount = maxHealth / currHealth;
+            healthBar.fillAmount = (float)maxHealth / currHealth;
         }
     }
 
@@ -54,7 +54,7 @@ public class Health : MonoBehaviour
     public void AddHealth(int someHealth)
     {
         int someCurrHealth = currHealth + someHealth;
-        if (someCurrHealth <= maxHealth)
+        if (someCurrHealth > 0)
         {
             currHealth = someCurrHealth;
         }
@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
 
        if (healthBar != null)
         {
-            healthBar.fillAmount = currHealth / maxHealth;
+            healthBar.fillAmount = (float)currHealth / maxHealth;
         }
     }
 
@@ -77,7 +77,7 @@ public class Health : MonoBehaviour
 
        if (healthBar != null)
         {
-            healthBar.fillAmount = currHealth / maxHealth;
+            healthBar.fillAmount = (float)currHealth / maxHealth;
         }
     }
 
@@ -89,7 +89,7 @@ public class Health : MonoBehaviour
 
        if (healthBar != null)
         {
-            healthBar.fillAmount = currHealth / maxHealth;
+            healthBar.fillAmount = (float)currHealth / maxHealth;
         }
     }
 
@@ -98,7 +98,7 @@ public class Health : MonoBehaviour
     {
         if (healthBar != null)
         {
-            healthBar.fillAmount = currHealth / maxHealth;
+            healthBar.fillAmount = (float)currHealth / maxHealth;
         }
     }
 }

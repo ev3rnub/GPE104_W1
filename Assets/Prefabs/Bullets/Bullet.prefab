@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   someGameManager: {fileID: 0}
-  bulletForce: 50
+  bulletForce: 45
 --- !u!114 &-7593528409249887755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c188c6799f4e2682d312c83c921e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damager
-  damageAmt: 75
+  damageAmt: 50
   isInstantKill: 0
 --- !u!82 &-3782451540945742448
 AudioSource:
