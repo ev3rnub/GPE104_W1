@@ -3,6 +3,8 @@
 //Student: Chad V
 
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic; // for List<>
 using TMPro;
@@ -20,7 +22,19 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI someAstroidValue;
     public TextMeshProUGUI someBulletValue;
     public TextMeshProUGUI someStageValue;
+    public TextMeshProUGUI someLivesValue;
+    public TextMeshProUGUI someEndGameBulletValue;
+    public TextMeshProUGUI someEndGameScoreValue;
+    public TextMeshProUGUI someWinGameBulletValue;
+    public TextMeshProUGUI someWinGameScoreValue;
     public Pawn someSpaceShipPawn;
+    public GameObject someEndGameScreen;
+    public GameObject someWinGameScreen;
+    public Button someRestartButton;
+    public Button someQuitButton;
+    public Button someWinRestartButton;
+    public Button someWinQuitButton;
+
     
     [Header("Lists")]
     public List<Obstacle> obstacleList;  // Obstacle list to keep track of astroids/obstacles
@@ -31,6 +45,7 @@ public class GameManager : MonoBehaviour
     public int someScore;
     public int totalAstroidCnt = 5;
     public int stage = 1;
+    public int lives = 2;
 
     [Header("Floats")]
     public float someMaxWidth = Screen.width;
@@ -40,8 +55,43 @@ public class GameManager : MonoBehaviour
 
     [Header("Bools")]
     public bool gameOver = false;
+    public bool winGame = false;
 
+    void Start()
+    {
+       InitGame();
+    }
 
+    void InitGame()
+    {
+        StartCoroutine(StageOne(someStageSecTime));
+        // StartCoroutine(StageTwo(someStageSecTime * 4));
+        // StartCoroutine(StageThree(someStageSecTime * 8));
+        // StartCoroutine(StageFour(someStageSecTime * 10));
+
+        UpdateLivesUI();
+
+        // Setup button listeners for endGame screen.
+        if (someRestartButton != null)
+        {
+            someRestartButton.onClick.AddListener(OnRestartPressed);
+        }
+            
+        if (someQuitButton != null)
+        {
+            someQuitButton.onClick.AddListener(QuitGame);
+        }
+
+        if (someWinRestartButton != null)
+        {
+            someWinRestartButton.onClick.AddListener(OnRestartPressed);
+        }
+
+        if (someWinQuitButton != null)
+        {
+            someWinQuitButton.onClick.AddListener(QuitGame);
+        }      
+    }
     //on awake(before start) if someGameManager is null assign gamemanger to this, and flag it to no destroy,
     //delete any duplicates. 
     public void Awake()
@@ -52,25 +102,94 @@ public class GameManager : MonoBehaviour
         {
             someGameManager = this;
             DontDestroyOnLoad(gameObject);
+            gameOver = false;
+            winGame = false;
+            Time.timeScale = 1f;
         }
         else
         {
+            someGameManager.RebindFrom(this);
+            enabled = false;
             Destroy(gameObject);
+            return;
+        }
+
+        if (someEndGameScreen != null)
+        {
+            someEndGameScreen.gameObject.SetActive(false);
+        }
+
+        if (someWinGameScreen != null)
+        {
+            someWinGameScreen.gameObject.SetActive(false);
         }
     }
 
-    void Start()
+    public void RebindFrom(GameManager other)
     {
-        StartCoroutine(StageOne(someStageSecTime));
-        StartCoroutine(StageTwo(someStageSecTime * 4));
-        StartCoroutine(StageThree(someStageSecTime * 8));
-        StartCoroutine(StageFour(someStageSecTime * 10));
+        // Scene references (all point at the new scene's objects)
+        astroidPrefab = other.astroidPrefab;
+        bulletPrefab = other.bulletPrefab;
+        controllerPlayer = other.controllerPlayer;
+        someValue = other.someValue;
+        someStatusMsg = other.someStatusMsg;
+        someAstroidValue = other.someAstroidValue;
+        someBulletValue = other.someBulletValue;
+        someStageValue = other.someStageValue;
+        someLivesValue = other.someLivesValue;
+        someSpaceShipPawn = other.someSpaceShipPawn;
+        someEndGameScreen = other.someEndGameScreen;
+        someWinGameScreen = other.someWinGameScreen;
+        someRestartButton = other.someRestartButton;
+        someQuitButton = other.someQuitButton;
+        someWinRestartButton = other.someWinRestartButton;
+        someWinQuitButton = other.someWinQuitButton;
+        someEndGameScoreValue = other.someEndGameScoreValue;
+        someEndGameBulletValue = other.someEndGameBulletValue;
+        someWinGameScoreValue = other.someWinGameScoreValue;
+        someWinGameBulletValue = other.someWinGameBulletValue;
+
+        // Reset game state to the scene's Inspector defaults
+        someScore = other.someScore;
+        totalAstroidCnt = other.totalAstroidCnt;
+        stage = other.stage;
+        lives = other.lives;
+        gameOver = false;
+        winGame = false;
+        Time.timeScale = 1f;
+        someEndGameScoreValue.text = "Score: 0";
+        someEndGameBulletValue.text = "Bullets Fired: 0";
+        someWinGameScoreValue.text = someEndGameScoreValue.text;
+        someWinGameBulletValue.text = someEndGameBulletValue.text;
+        obstacleList = new List<Obstacle>();
+        bulletList = new List<Bullet>();
+
+        // Hide/Deactivae EndGame screen.
+        if (someEndGameScreen != null)
+        {
+            someEndGameScreen.SetActive(false);
+        }
+
+        if (someWinGameScreen != null)
+        {
+            someWinGameScreen.SetActive(false);
+        }
+
+        InitGame(); // restart stage timers, refresh lives UI, re-hook buttons
+    }
+
+    void UpdateLivesUI()
+    {
+        if (someLivesValue != null)
+        {
+            someLivesValue.text = lives.ToString();
+        }
     }
 
     IEnumerator StageOne(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 2;
+        totalAstroidCnt += 1;
         someStatusMsg.text = "Stage One Completed!";
         someStageValue.text = stage.ToString();
     }
@@ -78,7 +197,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageTwo(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 4;
+        totalAstroidCnt += 2;
         someStatusMsg.text = "Stage Two Completed!";
         stage = 2;
         someStageValue.text = stage.ToString();
@@ -87,7 +206,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageThree(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 6;
+        totalAstroidCnt += 3;
         someStatusMsg.text = "Stage Three Completed!";
         stage = 3;
         someStageValue.text = stage.ToString();
@@ -96,7 +215,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StageFour(float someSeconds)
     {
         yield return new WaitForSeconds(someSeconds);
-        totalAstroidCnt += 8;
+        totalAstroidCnt += 4;
         someStatusMsg.text = "OVERTIME STAGE!";
         stage = 4;
         someStageValue.text = stage.ToString();
@@ -106,7 +225,7 @@ public class GameManager : MonoBehaviour
     {
 
         CleanupObstacleList();
-        SpawnAstroid();
+        //SpawnAstroid();
         // if obstacle list is not null and obstacle count is less than 0 and controlerPlayer is not null, if Game over does not equal
         // false and controllerPlayer.somePawn is not null, print Victory to the debug log, and set gameOver to true;
         if (obstacleList != null)
@@ -116,10 +235,10 @@ public class GameManager : MonoBehaviour
 
             if (obstacleList.Count <= 0 && controllerPlayer != null)
             {
-                if (gameOver == false && controllerPlayer.somePawn != null)
+                if (gameOver == false && winGame == false && controllerPlayer.somePawn != null)
                 {
                     Debug.Log("Victory!!");
-                    gameOver = true;
+                    winGame = true;
                 }
                 
             }
@@ -136,12 +255,26 @@ public class GameManager : MonoBehaviour
         // if game over is false and controller player is not null, and controllerPlayer.pawn is NULL, then fail as it means
         // our player died. 
 
-        if (gameOver == false && controllerPlayer != null)
+        if (gameOver == false && controllerPlayer != null && controllerPlayer.somePawn != null)
         {
-            if (controllerPlayer.somePawn == null)
+            if (!controllerPlayer.somePawn.gameObject.activeSelf)
             {
-                Debug.Log("FAILURE!!");
-                gameOver = true;
+                lives--;
+                UpdateLivesUI();
+                if (lives > 0)
+                {
+                    controllerPlayer.somePawn.transform.position = Vector3.zero;
+                    controllerPlayer.somePawn.gameObject.SetActive(true);
+                    Health h = controllerPlayer.somePawn.GetComponent<Health>();
+                    if (h != null) h.InstantHeal();                    
+                }
+                else
+                {
+                    //show end game screen w/buttons, pause game.
+                    Debug.Log("FAILURE!!");
+                    gameOver = true;
+                }
+
             }
         }
 
@@ -152,13 +285,43 @@ public class GameManager : MonoBehaviour
 
         if (gameOver)
         {
-            Application.Quit();
-
-            // If running inside the Unity Editor
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #endif
+            //show end game screen
+            someEndGameScoreValue.text = $"Score: {someValue.text}";
+            someEndGameBulletValue.text = $"Bullets Fired: {someBulletValue.text}";
+            someEndGameScreen.gameObject.SetActive(true);
+            // stop game time so the game doesn't keep running. 
+            Time.timeScale = 0f;
         }
+        if (winGame)
+        {
+            someWinGameScoreValue.text = $"Score: {someValue.text}";
+            someWinGameBulletValue.text = $"Bullets Fired: {someBulletValue.text}";
+            someWinGameScreen.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void OnRestartPressed()
+    {
+        Debug.Log("RESTARTING....");
+        Time.timeScale = 1f;
+        someEndGameScreen.gameObject.SetActive(false);
+        LoadScene("Level1");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+        // If running inside the Unity Editor
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
+
+    private void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
    void CleanupObstacleList()

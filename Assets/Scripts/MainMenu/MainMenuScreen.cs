@@ -51,6 +51,29 @@ public class MainMenuScreen : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        // Setup button listeners
+        if (somePlayBtn != null)
+        {
+            somePlayBtn.onClick.RemoveListener(OnPlayBtnPressed);
+        }
+            
+        if (someOptionsBtn != null)
+        {
+            someOptionsBtn.onClick.RemoveListener(OnOptionsBtnPressed);
+        }
+            
+        if (someQuitBtn != null)
+        {
+            someQuitBtn.onClick.RemoveListener(OnExitBtnPressed);
+        }
+        if (someCreditsButton != null)
+        {
+            someCreditsButton.onClick.RemoveListener(OnCreditsBtnPressed);
+        }        
+    }
+
     void Update()
     {
         // Check for quit key (Escape)
@@ -93,13 +116,8 @@ public class MainMenuScreen : MonoBehaviour
         QuitGame();
     }
 
-    // Simple scene loading method
     private void LoadScene(string sceneName)
     {
-        // This is a placeholder - in a real scenario, you'd use SceneManager
-        // But since you requested no SceneManager, we'll just show a message
-        Debug.Log($"Would load scene: {sceneName}");
-        // In a real implementation, you'd add SceneManager.LoadScene(sceneName);
         SceneManager.LoadScene(sceneName);
     }
 

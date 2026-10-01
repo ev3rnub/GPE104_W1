@@ -54,9 +54,12 @@ This will describe and list features that are implemented to a sufficient manner
 
 09/30/2026:06:33PM - Implemented a EnemyAI to chase payer, Implemented astroid spliting so when the player shoots an astroid it splits into two seperate astroids.
 
+10/01/2026:09:23AM - Implemented player lives, respawning, and a lose screen contianing stats and a restart and quit button. 
+
+10/01/2026:10:29AM - Implemented Win Screen.
+
 ## WIP
 
 This will describe Work in Progress implementations.
-- win/lose screens
-- winning or losing the game returns to the main menu
+- win screen
 

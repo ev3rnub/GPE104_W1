@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 4049539477398378299}
   - component: {fileID: 6928177700907082729}
   - component: {fileID: 6742109039920788853}
-  - component: {fileID: 1702818252199022363}
   - component: {fileID: 8383267995231030321}
   - component: {fileID: 6494169497260906383}
   m_Layer: 7
@@ -355,18 +354,6 @@ PolygonCollider2D:
       - {x: 0.31838906, y: -2.0197463}
       - {x: -0.3110255, y: -2.0293748}
   m_UseDelaunayMesh: 1
---- !u!114 &1702818252199022363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7812078207644879296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b09b2f13485f423691f2759d84141c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DeathDestroy
 --- !u!114 &8383267995231030321
 MonoBehaviour:
   m_ObjectHideFlags: 0
