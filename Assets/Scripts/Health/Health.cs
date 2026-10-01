@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
     public void SubHealth(int someDmg)
     {
         int someCurrHealth = currHealth - someDmg;
-        if (someCurrHealth >= 0)
+        if (someCurrHealth > 0)
         {
             currHealth = someCurrHealth;
         }
@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
 
        if (healthBar != null)
         {
-            healthBar.fillAmount = currHealth / maxHealth;
+            healthBar.fillAmount = (float)currHealth / maxHealth;
         }
     }
 
@@ -54,7 +54,7 @@ public class Health : MonoBehaviour
     public void AddHealth(int someHealth)
     {
         int someCurrHealth = currHealth + someHealth;
-        if (someCurrHealth > 0)
+        if (someCurrHealth > maxHealth)
         {
             currHealth = someCurrHealth;
         }
