@@ -20,7 +20,7 @@ This is the an ongoing project for GPE104. The goal of this project is to demons
 Music created by Chad Verbus using Reason 13. 
 SoundFX created via https://sfxr.me
 
-## Project Features
+## Project Features Timeline
 
 This will describe and list features that are implemented to a sufficient manner.
 
@@ -57,3 +57,5 @@ This will describe and list features that are implemented to a sufficient manner
 10/01/2026:09:23AM - Implemented player lives, respawning, and a lose screen contianing stats and a restart and quit button. 
 
 10/01/2026:10:29AM - Implemented Win Screen.
+
+10/01/2026:10:40AM - changed quitgame to goto main menu instead of closing the applicaiton. 

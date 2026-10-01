@@ -311,12 +311,14 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
 
-        // If running inside the Unity Editor
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        LoadScene("MainMenu");
+        // Application.Quit();
+
+        // // If running inside the Unity Editor
+        // #if UNITY_EDITOR
+        // UnityEditor.EditorApplication.isPlaying = false;
+        // #endif
     }
 
     private void LoadScene(string sceneName)
